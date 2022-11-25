@@ -16,3 +16,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/test-models', function (\App\Repositories\CustomerRepository $pr) use ($router) {
+    dd($pr->find("2"));
+});
