@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Customer extends Model {
 
-    private int $id;
+    private string $id;
     private string $name;
     private string $since;
     private float $revenue;
@@ -16,7 +16,7 @@ class Customer extends Model {
         $this->revenue = $revenue;
     }
 
-    public function getId() : int {
+    public function getId() : string {
         return $this->id;
     }
 

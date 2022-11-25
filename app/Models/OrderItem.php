@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Util\Discount\Discount;
+
 class OrderItem {
 
     private string $productId;
     private string $quantity;
     private float $unitPrice;
     private float $totalPrice;
-    private ?string $discount;
+    private ?Discount $discount;
 
     public function __construct(string $productId, int $quantity, float $unitPrice, float $totalPrice) {
         $this->productId = $productId;
@@ -18,7 +20,6 @@ class OrderItem {
         $this->discount = null;
     }
 
-    // Getters
     public function getProductId() : string {
         return $this->productId;
     }
@@ -35,7 +36,7 @@ class OrderItem {
         return $this->unitPrice;
     }
 
-    public function getDiscount() : ?string {
+    public function getDiscount() : ?Discount {
         return $this->discount;
     }
 }

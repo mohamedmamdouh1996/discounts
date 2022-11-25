@@ -3,15 +3,17 @@
 namespace App\Models;
 
 
+use App\Util\Discount\Discount;
+
 class Order extends Model {
 
     public string $id;
     public string $customerId;
     public array $items = [];
     public string $total;
-    public ?string $discount; // TODO ADD DISCOUNT
+    public ?Discount $discount;
 
-    public function __construct($id, $customerId, $items, $total) {
+    public function __construct(string $id, string $customerId, array $items = [], float $total = 0) {
         $this->id = $id;
         $this->customerId = $customerId;
         $this->items = $items;
@@ -19,7 +21,6 @@ class Order extends Model {
         $this->discount = null;
     }
 
-    // Getters
     public function getId(): string {
         return $this->id;
     }
@@ -34,5 +35,9 @@ class Order extends Model {
 
     public function getCustomerId() : string {
         return $this->customerId;
+    }
+
+    public function getDiscount() : ?Discount {
+        return $this->discount;
     }
 }
