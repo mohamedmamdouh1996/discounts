@@ -28,6 +28,10 @@ class OrderItem {
         return $this->quantity;
     }
 
+    public function increaseTotalQuantity(int $extraQuantity) : void {
+        $this->quantity += $extraQuantity;
+    }
+
     public function getTotalPrice() : float {
         return $this->totalPrice;
     }
@@ -38,5 +42,23 @@ class OrderItem {
 
     public function getDiscount() : ?Discount {
         return $this->discount;
+    }
+
+    public function setDiscount(Discount $discount) : void {
+        $this->discount = $discount;
+    }
+
+    public function updateTotalPrice(float $newPrice) : void {
+        $this->totalPrice = $newPrice;
+    }
+
+    public function toArray() {
+        return [
+            "product-id" => $this->productId,
+            "quantity" => $this->quantity,
+            "unit-price" => (string) $this->unitPrice,
+            "total" => (string) $this->totalPrice,
+            "discount" => $this->discount ? $this->discount->getDiscountName() : null,
+        ];
     }
 }
