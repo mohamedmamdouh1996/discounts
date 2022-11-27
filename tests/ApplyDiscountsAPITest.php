@@ -56,10 +56,10 @@ class ApplyDiscountsAPITest extends TestCase {
                     "product-id" => "B102",
                     "quantity"   => "10",
                     'unit-price' => "4.99",
-                    "total"      => "49.90",
+                    "total"      => "49.9",
                 ],
             ],
-            "total"       => "49.90",
+            "total"       => "49.9",
         ];
 
         $this->post('/api/apply-discount', $requestBody);
@@ -78,11 +78,11 @@ class ApplyDiscountsAPITest extends TestCase {
                     "product-id" => "B102",
                     "quantity"   => "12",
                     "unit-price" => "4.99",
-                    "total"      => "49.90",
-                    "discount"   => "BuyFiveGetOne",
+                    "total"      => "49.9",
+                    "discount"   => "BuyXGetYItemsExtraDiscount",
                 ],
             ],
-            "total"       => "49.90",
+            "total"       => "49.9",
             "discount"    => null,
         ], $response);
     }
@@ -118,11 +118,11 @@ class ApplyDiscountsAPITest extends TestCase {
                     "product-id"       => "A101",
                     "quantity"         => "2",
                     "unit-price"       => "9.75",
-                    "total"            => "15.60",
-                    "discount" => "BuyTwoGetTwentyOff",
+                    "total"            => "17.55",
+                    "discount" => "BuyXGetYPercentageOffDiscount",
                 ],
             ],
-            "total"            => "15.60",
+            "total"            => "17.55",
             "discount" => null,
         ], $response);
 
@@ -164,8 +164,7 @@ class ApplyDiscountsAPITest extends TestCase {
                 ],
             ],
             "total"            => "8.982",
-            "discount" => "HighRevenueCustomerTenOff",
+            "discount" => "HighRevenueCustomerDiscount",
         ], $response);
     }
-
 }

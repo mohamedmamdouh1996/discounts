@@ -8,4 +8,7 @@ To install the system, clone the repository and run `composer install` to instal
 To run the system, run `php -S localhost:port -t public` example `php -S localhost:8000 -t public` from the root of the project.
 
 ## To run tests
-vendor/bin/phpunit tests
+`vendor/bin/phpunit tests`
+
+## API Documentation
+https://documenter.getpostman.com/view/2446485/2s8YswPqhR

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Handlers\DiscountHandler;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
@@ -9,6 +10,9 @@ use App\Repositories\CustomerRepository;
 use App\Repositories\Memory\MemoryCustomerRepository;
 use App\Repositories\Memory\MemoryProductRepository;
 use App\Repositories\ProductRepository;
+use App\Util\Discount\BuyXGetYItemsExtraDiscount;
+use App\Util\Discount\BuyXGetYPercentageOffDiscount;
+use App\Util\Discount\HighRevenueCustomerDiscount;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -50,6 +54,43 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return $repo;
+        });
+
+        $this->app->bind(HighRevenueCustomerDiscount::class, function ($app) {
+            return new HighRevenueCustomerDiscount(
+                $app->make(CustomerRepository::class),
+                1000,
+                10
+            );
+        });
+
+        $this->app->bind(BuyXGetYPercentageOffDiscount::class, function ($app) {
+            return new BuyXGetYPercentageOffDiscount(
+                $app->make(ProductRepository::class),
+                new Category(1),
+                2,
+                10
+            );
+        });
+
+
+        $this->app->bind(BuyXGetYItemsExtraDiscount::class, function ($app) {
+            return new BuyXGetYItemsExtraDiscount(
+                $app->make(ProductRepository::class),
+                new Category(2),
+                5,
+                1
+            );
+        });
+
+        $this->app->tag([
+            HighRevenueCustomerDiscount::class,
+            BuyXGetYPercentageOffDiscount::class,
+            BuyXGetYItemsExtraDiscount::class
+        ], "discounts");
+
+        $this->app->bind(DiscountHandler::class, function ($app) {
+            return new DiscountHandler($app->tagged("discounts"));
         });
     }
 }
