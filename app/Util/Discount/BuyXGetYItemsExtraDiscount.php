@@ -14,7 +14,9 @@ class BuyXGetYItemsExtraDiscount implements Discount {
     private Category $category;
     private ProductRepository $productRepository;
 
-    public function __construct(ProductRepository $pr, Category $category, $minItems = 5, $extraItems = 1) {
+    public function __construct(ProductRepository $pr, Category $category,
+        $minItems = 5, $extraItems = 1
+    ) {
         $this->minItems = $minItems;
         $this->extraItems = $extraItems;
         $this->category = $category;

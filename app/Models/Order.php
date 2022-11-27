@@ -13,7 +13,9 @@ class Order extends Model {
     public string $total;
     public ?Discount $discount;
 
-    public function __construct(string $id, string $customerId, array $items = [], float $total = 0) {
+    public function __construct(string $id, string $customerId, array $items = [],
+        float $total = 0
+    ) {
         $this->id = $id;
         $this->customerId = $customerId;
         $this->items = $items;
@@ -35,10 +37,6 @@ class Order extends Model {
 
     public function getCustomerId() : string {
         return $this->customerId;
-    }
-
-    public function getDiscount() : ?Discount {
-        return $this->discount;
     }
 
     public function updateTotalPriceFromItems() {
@@ -64,7 +62,6 @@ class Order extends Model {
     }
 
     public function toArray() {
-
         return [
             "id" => $this->id,
             "customer-id" => $this->customerId,
@@ -74,12 +71,12 @@ class Order extends Model {
         ];
     }
 
-
     public function itemsToArray() {
         $items = [];
         foreach($this->items as $item) {
             $items[] = $item->toArray();
         }
+
         return $items;
     }
 }

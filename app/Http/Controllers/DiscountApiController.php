@@ -15,12 +15,22 @@ class DiscountApiController extends Controller {
 
     public function applyDiscounts(Request $request) {
 
-        // Request Validation
+        $this->validate($request, [
+            "id" => "required",
+            "customer-id" => "required",
+            "items" => "array|required",
+            "items.*.product-id" => "required",
+            "items.*.quantity" => "required",
+            "items.*.unit-price" => "required",
+            "items.*.total" => "required",
+            "total" => "required"
+        ]);
+
         $order = $this->formOrderFromRequest($request->all());
 
         $newOrder = $this->discountHandler->applyDiscounts($order);
 
-        return $newOrder->toArray();
+        return response()->json($newOrder->toArray());
     }
 
 

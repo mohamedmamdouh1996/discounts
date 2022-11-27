@@ -14,7 +14,9 @@ class BuyXGetYPercentageOffDiscount implements Discount {
     private Category $category;
     private ProductRepository $productRepository;
 
-    public function __construct(ProductRepository $pr, Category $category, $minItems = 2, $offPercentage = 10) {
+    public function __construct(ProductRepository $pr, Category $category,
+        $minItems = 2, $offPercentage = 10
+    ) {
         $this->minItems = $minItems;
         $this->offPercentage = $offPercentage;
         $this->category = $category;
@@ -38,14 +40,18 @@ class BuyXGetYPercentageOffDiscount implements Discount {
         foreach ($order->getItems() as $item) {
             if ($this->isValidItem($item)) {
                 $product = $this->productRepository->find($item->getProductId());
-                if ($cheapestProduct === null || $product->getPrice() < $cheapestProduct->getPrice()) {
+                if ($cheapestProduct === null ||
+                    $product->getPrice() < $cheapestProduct->getPrice()
+                ) {
                     $cheapestItem = $item;
                     $cheapestProduct = $product;
                 }
             }
         }
 
-        $newPrice = $cheapestItem->getTotalPrice() - ($cheapestItem->getTotalPrice() * ($this->offPercentage / 100));
+        $newPrice = $cheapestItem->getTotalPrice() -
+            ($cheapestItem->getTotalPrice() * ($this->offPercentage / 100))
+        ;
         $cheapestItem->updateTotalPrice($newPrice);
         $cheapestItem->setDiscount($this);
 

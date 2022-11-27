@@ -17,8 +17,5 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-//$router->get('/api/discounts', function () use ($router) {
-//});
-
 $router->post("/api/apply-discount", "DiscountApiController@applyDiscounts");
 

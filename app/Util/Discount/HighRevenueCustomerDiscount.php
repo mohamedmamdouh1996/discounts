@@ -13,7 +13,9 @@ class HighRevenueCustomerDiscount implements Discount {
     private int $offPercentage;
     protected CustomerRepository $customerRepository;
 
-    public function __construct(CustomerRepository $cr, $minRevenue = 1000, $offPercentage = 10) {
+    public function __construct(CustomerRepository $cr, $minRevenue = 1000,
+        $offPercentage = 10
+    ) {
         $this->minRevenue = $minRevenue;
         $this->offPercentage = $offPercentage;
         $this->customerRepository = $cr;
@@ -26,7 +28,9 @@ class HighRevenueCustomerDiscount implements Discount {
     }
 
     public function apply(Order $order): void {
-        $newPrice = $order->getTotal() - ($order->getTotal() * ($this->offPercentage / 100));
+        $newPrice = $order->getTotal() -
+            ($order->getTotal() * ($this->offPercentage / 100))
+        ;
         $order->updateTotalPrice($newPrice);
         $order->setDiscount($this);
     }

@@ -13,7 +13,7 @@ class DiscountHandler {
         $this->discounts = $discounts;
     }
 
-    public function applyDiscounts(Order $order) {
+    public function applyDiscounts(Order $order): Order {
         foreach ($this->discounts as $discount) {
             if ($discount->isApplicable($order)) {
                 $discount->apply($order);
